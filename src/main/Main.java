@@ -51,7 +51,10 @@ public class Main {
 			long timeBSInicial = System.currentTimeMillis();//inicia o time
 			int[] bubble = Algorithms.bubbleSort(num);
 			long tb = runtimeFinal(timeBSInicial);//finaliza, calcula e salva o time
-			saveToFile(name_file_out, algoritmo, bubble.length, "caso", tb, 00000);
+			long ram = getMemoriaRam();
+			long ramMB = ram/(1024L * 1024L);
+			System.out.println("RAM: "+ ram+ "bytes ("+ramMB+"MB)");
+			saveToFile(name_file_out, algoritmo, bubble.length, "caso", tb, ram);
 			
 			//printa entradas pequenas, só pra  mostrar a saida ordenada, N grandes não tem necessidade
 			if(bubble.length<101) {printResult(bubble);}
@@ -88,8 +91,13 @@ public class Main {
 		return t;
 	}
 	public static long getMemoriaRam() {
-		long ram = 0;
-		return ram;
+		// Get the Java runtime
+        Runtime runtime = Runtime.getRuntime();
+        // Calculate the used memory
+        long ram_bytes = runtime.totalMemory() - runtime.freeMemory();
+        long MB = 1024L * 1024L;
+        long ram = ram_bytes/MB;
+		return ram_bytes;
 	}
 	public static void saveToFile(String filename, String algoritmo, int size_n, String caso, long tempo_exec, long ram){
 		Date tempo_atual = new Date();
