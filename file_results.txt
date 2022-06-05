@@ -1,0 +1,4 @@
+1654453161844, bubble_sort, 100, caso, 0, 01654453551883, bubble_sort, 100, caso, -2, 01654453719282, bubble_sort, 100, caso, 1, 01654453869771, bubble_sort, 100, caso, 1, 0
+Sun Jun 05 15:33:57 BRT 2022, bubble_sort, 100, caso, 1, 0
+Sun Jun 05 15:37:53 BRT 2022, bubble_sort, 100, caso, 2, 0
+Sun Jun 05 16:02:38 BRT 2022, bubble_sort, 100, caso, 0, 0
