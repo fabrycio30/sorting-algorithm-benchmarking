@@ -39,7 +39,7 @@ public class Main {
 		String[] splitDados = dados.split("\n");
 		int input_size = Integer.parseInt(splitDados[0]);
 		String algoritmo = splitDados[1];
-		int[] num = Inputs.intsRandom(input_size);//Array com numeros desordenados aleatóriamente
+		int[] num = Casos.aleatorio(input_size);//Array com numeros desordenados aleatóriamente
 		String name_file_out = "file_results";//nome do arquivo que gravará as saídas do algorítmos
 		
 		System.out.println("Tamanho da entrada: "+input_size+"\nAlgorítmo: "+ algoritmo+"");
@@ -49,36 +49,59 @@ public class Main {
 			System.out.print("\n--------------------------------------------------------------------------------------------------------");
 			System.out.println("\nResultados ");
 			long timeBSInicial = System.currentTimeMillis();//inicia o time
-			int[] bubble = Algorithms.bubbleSort(num);
+			GetFormat bubble = Algorithms.bubbleSort(num);
 			long tb = runtimeFinal(timeBSInicial);//finaliza, calcula e salva o time
-			long ram = getMemoriaRam();
+			long ram = bubble.getConsumoRAM();
 			long ramMB = ram/(1024L * 1024L);
 			System.out.println("RAM: "+ ram+ "bytes ("+ramMB+"MB)");
-			saveToFile(name_file_out, algoritmo, bubble.length, "caso", tb, ram);
+			
 			
 			//printa entradas pequenas, só pra  mostrar a saida ordenada, N grandes não tem necessidade
-			if(bubble.length<101) {printResult(bubble);}
+			if(bubble.getArrayOrdenado().length<101) {
+				for (int i = 0; i < bubble.getArrayOrdenado().length; i++) {
+					System.out.print(bubble.getArrayOrdenado()[i]+", ");
+				}
+				}
+			
+			saveToFile(name_file_out, algoritmo, bubble.getArrayOrdenado().length, Casos.getCaso(), tb, bubble.getConsumoRAM());
+			
 		}else if(algoritmo.compareTo("quick_sort")==0) {
 			//QuickSort
 			System.out.println("\n-------------------------------------------------------------------------------------------------------");
 			System.out.println("Quick");
 			long timeQSInicial = System.currentTimeMillis();//inicia o time
-			int[] quick  = Algorithms.quickSort(num, num[0], num.length-1);
-			runtimeFinal(timeQSInicial);//finaliza, calcula e salva o time
+			GetFormat quick  = Algorithms.quickSort(num, num[0], num.length-1);
+			long tq = runtimeFinal(timeQSInicial);//finaliza, calcula e salva o time
+			
+			long ram = quick.getConsumoRAM();
+			long ramMB = ram/(1024L * 1024L);
+			System.out.println("RAM: "+ ram+ "bytes ("+ramMB+"MB)");
 			
 			//printa entradas pequenas, só pra  mostrar a saida ordenada, N grandes não tem necessidade
-			if(quick.length<101) {printResult(quick);}
+			if(quick.getArrayOrdenado().length<101) {
+
+				for (int i = 0; i < quick.getArrayOrdenado().length; i++) {
+					System.out.print(quick.getArrayOrdenado()[i]+", ");
+				}
+			}
+			saveToFile(name_file_out, algoritmo, quick.getArrayOrdenado().length, Casos.getCaso(), tq, quick.getConsumoRAM());
 			
 		}else if(algoritmo.compareTo("shell_sort")==0) {
 			//ShellSort
 			System.out.println("\n--------------------------------------------------------------------------------------------------------");
 			System.out.println("Shell ");
 			long timeSSInicial = System.currentTimeMillis();//inicia o time
-			int[] shell = Algorithms.shellSort(num);
-			runtimeFinal(timeSSInicial);//finaliza, calcula e salva o time
+			GetFormat shell = Algorithms.shellSort(num);
+			long ts = runtimeFinal(timeSSInicial);//finaliza, calcula e salva o time
 			
 			//printa entradas pequenas, só pra  mostrar a saida ordenada, N grandes não tem necessidade
-			if(shell.length<101) {printResult(shell);}  
+			if(shell.getArrayOrdenado().length<101) {
+				for (int i = 0; i < shell.getArrayOrdenado().length; i++) {
+					System.out.print(shell.getArrayOrdenado()[i]+", ");
+				}
+			} 
+			saveToFile(name_file_out, algoritmo, shell.getArrayOrdenado().length, Casos.getCaso(), ts, shell.getConsumoRAM());
+
 			
 		}
 		else {System.out.println("Algorítmo não encontrado. Tente novamente!");}
@@ -90,15 +113,13 @@ public class Main {
 		System.out.println("Tempo de execução: "+ t + " ms");
 		return t;
 	}
-	public static long getMemoriaRam() {
-		// Get the Java runtime
-        Runtime runtime = Runtime.getRuntime();
-        // Calculate the used memory
-        long ram_bytes = runtime.totalMemory() - runtime.freeMemory();
-        long MB = 1024L * 1024L;
-        long ram = ram_bytes/MB;
-		return ram_bytes;
-	}
+
+	/*
+	 * public static long getMemoriaRam() { // Get the Java runtime Runtime runtime
+	 * = Runtime.getRuntime(); // Calculate the used memory long ram_bytes =
+	 * runtime.totalMemory() - runtime.freeMemory(); long MB = 1024L * 1024L; long
+	 * ram = ram_bytes/MB; return ram_bytes; }
+	 */
 	public static void saveToFile(String filename, String algoritmo, int size_n, String caso, long tempo_exec, long ram){
 		Date tempo_atual = new Date();
 		tempo_atual.toString();
@@ -110,7 +131,7 @@ public class Main {
 		      String linha = tempo_atual+", "+algoritmo+", "+size_n+", "+caso+", "+tempo_exec+", "+ram;
 		      escreva.write(linha+"\n");
 		      escreva.close();
-		      System.out.println("Os dados foram gravados no arquivo de saída!");
+		      System.out.println("Obs.: Os dados foram gravados no arquivo de saída!");
 		    } catch (IOException e) {
 		      System.err.println("Erro ao gravar no arquivo de saída!");
 		      e.printStackTrace();

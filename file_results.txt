@@ -2,3 +2,10 @@ Sun Jun 05 16:29:55 BRT 2022, bubble_sort, 10000, caso, 150, 2
 Sun Jun 05 16:41:16 BRT 2022, bubble_sort, 10000, caso, 153, 2826240
 Sun Jun 05 16:56:04 BRT 2022, bubble_sort, 100000, caso, 15451, 3226256
 Sun Jun 05 16:57:42 BRT 2022, bubble_sort, 100000, caso, 16080, 3226256
+Tue Jun 07 19:43:09 BRT 2022, bubble_sort, 1000, caso, 12, 2826240
+Tue Jun 07 19:53:07 BRT 2022, bubble_sort, 1000, caso, 10, 2514072
+Tue Jun 07 20:33:13 BRT 2022, bubble_sort, 1000, caso_real(random), 13, 2826240
+Tue Jun 07 20:58:52 BRT 2022, quick_sort, 1000, caso_real(random), 1, 2826240
+Tue Jun 07 21:13:35 BRT 2022, shell_sort, 1000, caso_real(random), 3, 2826240
+Tue Jun 07 21:13:49 BRT 2022, shell_sort, 1000, caso_real(random), 2, 2826240
+Tue Jun 07 21:41:38 BRT 2022, shell_sort, 10000, caso_real(random), 10, 3121984
