@@ -1,2 +1,2 @@
-10000
-shell_sort
+1000
+bubble_sort
